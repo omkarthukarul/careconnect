@@ -28,8 +28,15 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Ensure Android Wrapper & Platform Scaffolding
+        run: |
+          cp -r lib lib_backup
+          flutter create . --platforms=android --org com.careconnect
+          rm -rf lib
+          mv lib_backup lib
+
       - name: Get Dependencies
-        run: flutter pub get --verbose
+        run: flutter pub get
 
       - name: Build Android Release APK
         run: flutter build apk --release --no-tree-shake-icons
