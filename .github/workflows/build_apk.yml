@@ -28,20 +28,38 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Ensure Android Wrapper & Platform Scaffolding
+      - name: Ensure Android Platform Scaffolding
         run: |
           cp -r lib lib_backup
           flutter create . --platforms=android --org com.careconnect
           rm -rf lib
           mv lib_backup lib
+          # Ensure minSdk is 21 for flutter_secure_storage
+          sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 21/g' android/app/build.gradle 2>/dev/null || true
+          sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle 2>/dev/null || true
 
       - name: Get Dependencies
         run: flutter pub get
 
       - name: Build Android Release APK
-        run: flutter build apk --release --no-tree-shake-icons
+        run: |
+          flutter build apk --release --no-tree-shake-icons 2>&1 | tee build_log.txt
+
+      - name: Show Failure Details
+        if: failure()
+        run: |
+          echo "=== BUILD LOG FAILURE TAIL ==="
+          tail -n 120 build_log.txt
+
+      - name: Upload Build Log on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-failure-log
+          path: build_log.txt
 
       - name: Upload APK Artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: CareConnect-Maharashtra-Release-APK

@@ -26,8 +26,8 @@ dependencies:
   flutter_secure_storage: ^9.2.2
 
   # Maps & Location (OpenStreetMap)
-  flutter_map: any
-  latlong2: any
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
 
   # Utilities
   intl: any
