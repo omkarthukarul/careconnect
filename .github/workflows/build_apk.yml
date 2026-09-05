@@ -29,10 +29,10 @@ jobs:
           cache: true
 
       - name: Get Dependencies
-        run: flutter pub get
+        run: flutter pub get --verbose
 
       - name: Build Android Release APK
-        run: flutter build apk --release
+        run: flutter build apk --release --no-tree-shake-icons
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
