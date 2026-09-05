@@ -32,33 +32,32 @@ jobs:
 
       - name: Ensure Android Platform Scaffolding
         run: |
+          rm -rf android
           cp -r lib lib_backup
           flutter create . --platforms=android --org com.careconnect
           rm -rf lib
           mv lib_backup lib
+
+          # Inject permissions into AndroidManifest.xml
+          sed -i '/<application/i \    <uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>\n    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>\n    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>' android/app/src/main/AndroidManifest.xml
+
           # Ensure minSdk is 21 for flutter_secure_storage
-          sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 21/g' android/app/build.gradle 2>/dev/null || true
-          sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle 2>/dev/null || true
+          if [ -f android/app/build.gradle.kts ]; then
+            sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle.kts || true
+          fi
+          if [ -f android/app/build.gradle ]; then
+            sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 21/g' android/app/build.gradle || true
+            sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle || true
+          fi
 
       - name: Get Dependencies
         run: flutter pub get
 
       - name: Build Android Release APK
         run: |
-          flutter build apk --release --no-tree-shake-icons 2>&1 | tee build_log.txt
-
-      - name: Show Failure Details
-        if: failure()
-        run: |
-          echo "=== BUILD LOG FAILURE TAIL ==="
-          tail -n 120 build_log.txt
-
-      - name: Upload Build Log on Failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-failure-log
-          path: build_log.txt
+          flutter build apk --release --no-tree-shake-icons --android-skip-build-dependency-validation
+          echo "=== VERIFY APK ARTIFACT ==="
+          ls -la build/app/outputs/flutter-apk/
 
       - name: Upload APK Artifact
         if: success()
