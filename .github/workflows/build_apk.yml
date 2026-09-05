@@ -11,6 +11,8 @@ jobs:
   build:
     name: Build Release APK
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Repository
@@ -65,3 +67,21 @@ jobs:
           name: CareConnect-Maharashtra-Release-APK
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
+
+      - name: Create GitHub Release
+        if: success()
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: "CareConnect Maharashtra v1.0.0 (SIH Release APK)"
+          body: |
+            ### 🏥 संजीवन महा-नेट (CareConnect Maharashtra)
+            **Tagline:** "From first contact to completed care."
+            
+            Smart India Hackathon 2024/2025 HealthTech Mobile Application.
+            
+            #### 📱 Android Installation:
+            Download `app-release.apk` below directly onto your Android device and install it.
+          files: build/app/outputs/flutter-apk/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
