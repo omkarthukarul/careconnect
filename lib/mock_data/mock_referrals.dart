@@ -1,0 +1,163 @@
+import '../models/referral_model.dart';
+import '../models/triage_result_model.dart';
+
+class MockReferrals {
+  MockReferrals._();
+
+  static List<ReferralModel> get referrals => [
+        ReferralModel(
+          id: 'REF-MH-2026-90142',
+          patientId: 'MH-PUN-2026-0842',
+          patientName: 'Ramesh Balasaheb Patil',
+          patientAge: 58,
+          patientGender: 'Male',
+          originFacility: 'Shirur Primary Health Centre',
+          destinationFacility: 'District Hospital Pune (Aundh)',
+          assignedAmbulance: 'MH-12-EM-1081 (ALS Unit)',
+          ambulanceDriver: 'Sambhaji Shinde',
+          driverContact: '+91 98234 56789',
+          etaMinutes: 18,
+          status: ReferralStatus.inTransit,
+          urgency: TriageUrgency.emergency,
+          requiredSpecialty: 'Cardiology / ICCU',
+          reservedBedId: 'ICU-B04',
+          createdAt: DateTime.now().subtract(const Duration(minutes: 42)),
+          updatedAt: DateTime.now().subtract(const Duration(minutes: 8)),
+          events: [
+            ReferralStatusEvent(
+              status: ReferralStatus.submitted,
+              timestamp: DateTime.now().subtract(const Duration(minutes: 42)),
+              note: 'Urgent referral initiated by Dr. Sunil Deshmukh (MO Shirur PHC) for Acute STEMI.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.accepted,
+              timestamp: DateTime.now().subtract(const Duration(minutes: 36)),
+              note: 'Referral evaluated and approved by Dr. Kulkarni (ER In-charge, District Hospital Pune).',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.bedReserved,
+              timestamp: DateTime.now().subtract(const Duration(minutes: 30)),
+              note: 'ICU Bed #ICU-B04 locked with multipara monitor and ventilator standby.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.inTransit,
+              timestamp: DateTime.now().subtract(const Duration(minutes: 18)),
+              note: 'Ambulance MH-12-EM-1081 dispatched with paramedic. Vitals stable under O2 therapy.',
+            ),
+          ],
+        ),
+        ReferralModel(
+          id: 'REF-MH-2026-90143',
+          patientId: 'MH-PUN-2026-1120',
+          patientName: 'Anusaya Shankar Shinde',
+          patientAge: 64,
+          patientGender: 'Female',
+          originFacility: 'Koregaon Bhima PHC',
+          destinationFacility: 'Sassoon General Hospital & BJMC',
+          assignedAmbulance: 'MH-12-EM-1084 (BLS Unit)',
+          ambulanceDriver: 'Santosh Jadhav',
+          driverContact: '+91 97654 32100',
+          etaMinutes: 30,
+          status: ReferralStatus.bedReserved,
+          urgency: TriageUrgency.emergency,
+          requiredSpecialty: 'Pulmonology / Critical Care',
+          reservedBedId: 'OXY-C12',
+          createdAt: DateTime.now().subtract(const Duration(minutes: 65)),
+          updatedAt: DateTime.now().subtract(const Duration(minutes: 20)),
+          events: [
+            ReferralStatusEvent(
+              status: ReferralStatus.submitted,
+              timestamp: DateTime.now().subtract(const Duration(minutes: 65)),
+              note: 'Acute respiratory distress with bilateral crackles.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.accepted,
+              timestamp: DateTime.now().subtract(const Duration(minutes: 45)),
+              note: 'Accepted by Sassoon Emergency Triage Desk.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.bedReserved,
+              timestamp: DateTime.now().subtract(const Duration(minutes: 20)),
+              note: 'High-Flow Oxygen bed reserved in Ward 14.',
+            ),
+          ],
+        ),
+        ReferralModel(
+          id: 'REF-MH-2026-90144',
+          patientId: 'MH-PUN-2026-1355',
+          patientName: 'Ganesh Dattatray Gaikwad',
+          patientAge: 32,
+          patientGender: 'Male',
+          originFacility: 'Sanaswadi Sub-Center',
+          destinationFacility: 'Sassoon General Hospital & BJMC',
+          assignedAmbulance: null,
+          ambulanceDriver: null,
+          driverContact: null,
+          etaMinutes: 45,
+          status: ReferralStatus.submitted,
+          urgency: TriageUrgency.urgent,
+          requiredSpecialty: 'Orthopedics / Polytrauma',
+          reservedBedId: null,
+          createdAt: DateTime.now().subtract(const Duration(minutes: 15)),
+          updatedAt: DateTime.now().subtract(const Duration(minutes: 15)),
+          events: [
+            ReferralStatusEvent(
+              status: ReferralStatus.submitted,
+              timestamp: DateTime.now().subtract(const Duration(minutes: 15)),
+              note: 'Compound fracture right tibia; hemodynamically stable; awaiting bed approval.',
+            ),
+          ],
+        ),
+        ReferralModel(
+          id: 'REF-MH-2026-90138',
+          patientId: 'MH-PUN-2026-1704',
+          patientName: 'Tanaji Tukaram Jagtap',
+          patientAge: 51,
+          patientGender: 'Male',
+          originFacility: 'Ranjangaon PHC',
+          destinationFacility: 'Sub-District Hospital Shirur',
+          assignedAmbulance: 'MH-12-EM-1082',
+          ambulanceDriver: 'Vikas Kadam',
+          driverContact: '+91 98901 23456',
+          etaMinutes: 0,
+          status: ReferralStatus.completed,
+          urgency: TriageUrgency.routine,
+          requiredSpecialty: 'General Medicine',
+          reservedBedId: 'GEN-M08',
+          createdAt: DateTime.now().subtract(const Duration(days: 1, hours: 4)),
+          updatedAt: DateTime.now().subtract(const Duration(hours: 18)),
+          events: [
+            ReferralStatusEvent(
+              status: ReferralStatus.submitted,
+              timestamp: DateTime.now().subtract(const Duration(days: 1, hours: 4)),
+              note: 'Evaluation for chronic chest infection.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.accepted,
+              timestamp: DateTime.now().subtract(const Duration(days: 1, hours: 3)),
+              note: 'Accepted by SDH Shirur OPD.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.bedReserved,
+              timestamp: DateTime.now().subtract(const Duration(days: 1, hours: 2)),
+              note: 'General Ward bed allocated.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.inTransit,
+              timestamp: DateTime.now().subtract(const Duration(days: 1, hours: 1)),
+              note: 'Patient escorted via routine transfer.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.arrived,
+              timestamp: DateTime.now().subtract(const Duration(days: 1)),
+              note: 'Arrival acknowledged by receiving sister.',
+            ),
+            ReferralStatusEvent(
+              status: ReferralStatus.completed,
+              timestamp: DateTime.now().subtract(const Duration(hours: 18)),
+              note: 'Clinical handover completed; patient under observation.',
+            ),
+          ],
+        ),
+      ];
+}

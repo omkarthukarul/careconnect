@@ -1,0 +1,73 @@
+import '../models/patient_model.dart';
+
+class MockPatients {
+  MockPatients._();
+
+  static List<PatientModel> get patients => [
+        PatientModel(
+          id: 'MH-PUN-2026-0842',
+          fullName: 'Ramesh Balasaheb Patil',
+          age: 58,
+          gender: 'Male',
+          mobile: '9822019485',
+          village: 'Shikrapur',
+          district: 'Pune',
+          emergencyContact: '9822019486 (Sunita Patil - Wife)',
+          abhaId: '91-4920-1849-2041',
+          registrationDate: DateTime.now().subtract(const Duration(hours: 1, minutes: 20)),
+          chiefComplaint: 'Sudden severe crushing retrosternal chest pain with profuse sweating',
+        ),
+        PatientModel(
+          id: 'MH-PUN-2026-1120',
+          fullName: 'Anusaya Shankar Shinde',
+          age: 64,
+          gender: 'Female',
+          mobile: '9423184920',
+          village: 'Koregaon Bhima',
+          district: 'Pune',
+          emergencyContact: '9764120938 (Sachin Shinde - Son)',
+          abhaId: '91-8840-3920-1102',
+          registrationDate: DateTime.now().subtract(const Duration(hours: 3)),
+          chiefComplaint: 'Acute breathlessness, orthopnea, bilateral pedal edema',
+        ),
+        PatientModel(
+          id: 'MH-PUN-2026-1355',
+          fullName: 'Ganesh Dattatray Gaikwad',
+          age: 32,
+          gender: 'Male',
+          mobile: '9673849102',
+          village: 'Sanaswadi',
+          district: 'Pune',
+          emergencyContact: '9921849201 (Prakash Gaikwad - Brother)',
+          abhaId: '91-7294-1849-9942',
+          registrationDate: DateTime.now().subtract(const Duration(hours: 5, minutes: 40)),
+          chiefComplaint: 'High velocity road traffic collision with multiple extremity trauma',
+        ),
+        PatientModel(
+          id: 'MH-PUN-2026-1598',
+          fullName: 'Laxmibai Vithalrao Kale',
+          age: 45,
+          gender: 'Female',
+          mobile: '9158294012',
+          village: 'Shirur',
+          district: 'Pune',
+          emergencyContact: '9158294013 (Vithalrao Kale - Husband)',
+          abhaId: null,
+          registrationDate: DateTime.now().subtract(const Duration(days: 1)),
+          chiefComplaint: 'High fever for 4 days with severe chills and generalized myalgia',
+        ),
+        PatientModel(
+          id: 'MH-PUN-2026-1704',
+          fullName: 'Tanaji Tukaram Jagtap',
+          age: 51,
+          gender: 'Male',
+          mobile: '9860392817',
+          village: 'Ranjangaon',
+          district: 'Pune',
+          emergencyContact: '9860392818 (Amol Jagtap - Son)',
+          abhaId: '91-3829-1049-7711',
+          registrationDate: DateTime.now().subtract(const Duration(days: 2)),
+          chiefComplaint: 'Persistent productive cough and intermittent low-grade fever',
+        ),
+      ];
+}
