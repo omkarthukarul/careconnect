@@ -29,7 +29,7 @@ class AppTheme {
           color: Colors.white,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.cardSurface,
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -87,8 +87,8 @@ class AppTheme {
         backgroundColor: Colors.white,
         elevation: 8,
         indicatorColor: AppColors.primaryTealLight,
-        labelTextStyle: MaterialStateProperty.resolveWith<TextStyle?>((states) {
-          if (states.contains(MaterialState.selected)) {
+        labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((states) {
+          if (states.contains(WidgetState.selected)) {
             return const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -101,8 +101,8 @@ class AppTheme {
             color: AppColors.textMuted,
           );
         }),
-        iconTheme: MaterialStateProperty.resolveWith<IconThemeData?>((states) {
-          if (states.contains(MaterialState.selected)) {
+        iconTheme: WidgetStateProperty.resolveWith<IconThemeData?>((states) {
+          if (states.contains(WidgetState.selected)) {
             return const IconThemeData(color: AppColors.primaryTeal);
           }
           return const IconThemeData(color: AppColors.textSecondary);
